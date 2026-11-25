@@ -468,72 +468,93 @@ var ui = {
   pendingFile: null, pendingBase64: null
 };
 
-/* ===== Backend bridge =====
-   Apps Script mode: google.script.run
-   Cloudflare mode: local demo fallback so the storefront always renders.
-   When a real API endpoint is connected, set window.TD_API_URL and the
-   fetch adapter below can be extended without changing the UI.
-*/
-var TD_CLOUDFLARE_MODE = !(typeof google !== 'undefined' && google.script && google.script.run);
-
-var TD_DEMO_PRODUCTS = [
-  {id:'P001',cat:'01',title:'Banner Promo Lebaran',price:25000,formats:['PNG','CDR'],desc:'Banner promo momentum Lebaran. Layout horizontal siap cetak 200x60 cm dengan ruang logo toko dan diskon.',previewUrl:''},
-  {id:'P002',cat:'01',title:'Spanduk Buka Toko Baru',price:22000,formats:['PNG','CDR'],desc:'Spanduk grand opening dengan layout eye-catching. Termasuk slot foto produk dan tanggal promo.',previewUrl:''},
-  {id:'P003',cat:'02',title:'Undangan Pernikahan Elegan',price:35000,formats:['CDR','PDF'],desc:'Undangan pernikahan klasik dengan ornamen floral. Layout dua lipat siap cetak A5.',previewUrl:''},
-  {id:'P004',cat:'02',title:'Undangan Ulang Tahun Anak',price:18000,formats:['PNG','CDR'],desc:'Undangan ulang tahun tema warna-warni cocok untuk anak. Layout A6 siap cetak.',previewUrl:''},
-  {id:'P005',cat:'03',title:'Poster Konser Musik',price:28000,formats:['PNG','AI'],desc:'Poster konser bergaya modern dengan tipografi besar. Ukuran A2 siap cetak.',previewUrl:''},
-  {id:'P006',cat:'03',title:'Brosur Produk Kosmetik',price:20000,formats:['CDR','PDF'],desc:'Brosur tiga lipat untuk produk kosmetik. Layout profesional dengan ruang foto produk.',previewUrl:''},
-  {id:'P007',cat:'04',title:'Logo Brand Coffee Shop',price:45000,formats:['AI','SVG','PNG'],desc:'Paket logo brand coffee shop lengkap: vektor AI, SVG, dan PNG transparan. Termasuk varian monochrome.',previewUrl:''},
-  {id:'P008',cat:'04',title:'Logo Tech Startup Minimalis',price:50000,formats:['AI','SVG'],desc:'Logo tech startup dengan geometric mark. Paket vektor editable dan panduan penggunaan.',previewUrl:''},
-  {id:'P009',cat:'05',title:'Twibbon Hari Guru',price:12000,formats:['PNG'],desc:'Frame twibbon Hari Guru untuk foto profil media sosial. PNG transparan 1080x1080.',previewUrl:''},
-  {id:'P010',cat:'05',title:'Twibbon Kemerdekaan RI',price:12000,formats:['PNG'],desc:'Twibbon merah-putih untuk HUT RI. PNG transparan siap pakai.',previewUrl:''},
-  {id:'P011',cat:'06',title:'Kartu Ujian Sekolah',price:15000,formats:['CDR'],desc:'Template kartu ujian sekolah editable. Layout standar dengan ruang foto dan data siswa.',previewUrl:''},
-  {id:'P012',cat:'06',title:'Piagam Penghargaan Siswa',price:17000,formats:['CDR'],desc:'Piagam penghargaan siswa dengan ornamen klasik. CDR editable, siap cetak A4.',previewUrl:''},
-  {id:'P013',cat:'07',title:'Template Brosur CDR Universal',price:30000,formats:['CDR'],desc:'Template CorelDRAW serbaguna untuk brosur. Lapisan terorganisir, mudah disesuaikan.',previewUrl:''},
-  {id:'P014',cat:'07',title:'Template Banner CDR Multi Ukuran',price:32000,formats:['CDR'],desc:'Paket template banner CDR untuk berbagai ukuran (1x2, 2x1, 3x1 m). Editable penuh.',previewUrl:''}
-];
-
-function localBackend(fnName, args) {
-  if (fnName === 'getCatalog') {
-    var saved = localStorage.getItem('td_demo_products');
-    return Promise.resolve({products: saved ? JSON.parse(saved) : TD_DEMO_PRODUCTS});
-  }
-  if (fnName === 'getDriveConnection') {
-    return Promise.resolve({connected:false, name:'Cloudflare', note:'Mode tampilan Cloudflare — backend Google Apps Script belum terhubung.'});
-  }
-  if (fnName === 'getOrders') {
-    var orders = JSON.parse(localStorage.getItem('td_demo_orders') || '[]');
-    var buyer = String(args || '').toLowerCase();
-    return Promise.resolve({orders: orders.filter(function(o){return String(o.email||'').toLowerCase()===buyer;})});
-  }
-  if (fnName === 'createTransaction') {
-    var orders = JSON.parse(localStorage.getItem('td_demo_orders') || '[]');
-    var id = 'DEMO-' + Date.now();
-    var order = {id:id,buyer:args.buyer,email:args.email,items:args.items,total:args.total,date:new Date().toISOString(),status:'pending',payMethod:args.payMethod};
-    orders.unshift(order);
-    localStorage.setItem('td_demo_orders', JSON.stringify(orders));
-    return Promise.resolve({ok:true,id:id});
-  }
-  if (fnName === 'getProduct') {
-    var products = JSON.parse(localStorage.getItem('td_demo_products') || 'null') || TD_DEMO_PRODUCTS;
-    return Promise.resolve({product:products.filter(function(p){return p.id===args;})[0] || null});
-  }
-  return Promise.reject(new Error('Fitur "' + fnName + '" membutuhkan backend Google Apps Script.'));
-}
-
+/* ===== Backend bridge ===== */
 function callBackend(fnName, args) {
+
+  // Google Apps Script langsung
   if (!TD_CLOUDFLARE_MODE) {
+
     return new Promise(function (resolve, reject) {
+
       google.script.run
         .withSuccessHandler(resolve)
         .withFailureHandler(reject)
         [fnName](args);
+
     });
   }
-  return localBackend(fnName, args);
+
+  // Cloudflare → Cloudflare Worker → Apps Script
+  var url = '';
+
+  if (fnName === 'getCatalog') {
+
+    url = '/api/catalog';
+
+    return fetch(url)
+      .then(function (r) {
+        return r.json();
+      });
+
+  }
+
+  if (fnName === 'getProduct') {
+
+    url = '/api/product?id=' +
+      encodeURIComponent(args);
+
+    return fetch(url)
+      .then(function (r) {
+        return r.json();
+      });
+
+  }
+
+  if (fnName === 'getOrders') {
+
+    url = '/api/orders?buyer=' +
+      encodeURIComponent(args);
+
+    return fetch(url)
+      .then(function (r) {
+        return r.json();
+      });
+
+  }
+
+  if (fnName === 'createTransaction') {
+
+    return fetch('/api/checkout', {
+
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify({
+        action: 'checkout',
+        buyer: args.buyer,
+        email: args.email,
+        items: args.items,
+        total: args.total,
+        payMethod: args.payMethod
+      })
+
+    }).then(function (r) {
+      return r.json();
+    });
+
+  }
+
+  return Promise.reject(
+    new Error(
+      'Fungsi Cloudflare belum terhubung: ' + fnName
+    )
+  );
 }
 function backendAvailable() {
-  return true;
+  return (typeof google !== 'undefined' && google.script && google.script.run);
 }
 
 /* ===== Cart (client-side localStorage) ===== */
@@ -1277,19 +1298,14 @@ function bindEvents() {
 }
 
 function init() {
-  var cfNotice = document.getElementById('cloudflareNotice');
-  if (cfNotice && TD_CLOUDFLARE_MODE) cfNotice.style.display = 'block';
-  // Cloudflare must render the storefront even when google.script.run is unavailable.
-  var overlay = document.getElementById('deployOverlay');
-  if (overlay) overlay.style.display = 'none';
+  if (!backendAvailable()) {
+    document.getElementById('deployOverlay').style.display = 'flex';
+    return;
+  }
   bindEvents();
   updateCartCount();
   Promise.all([loadCatalog(), loadDriveStatus()]).then(function () {
     setRole('pembeli');
-    if (TD_CLOUDFLARE_MODE) {
-      var status = document.getElementById('driveStatusText');
-      if (status) status.textContent = 'Mode Cloudflare · katalog demo aktif';
-    }
   }).catch(function (err) {
     toast('Gagal memuat data awal: ' + err.message, 'error');
     setRole('pembeli');
