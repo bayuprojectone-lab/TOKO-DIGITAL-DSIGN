@@ -516,7 +516,7 @@ var ui = {
   pendingFile: null, pendingBase64: null
 };
 
-var TD_CLOUDFLARE_MODE = false;
+var TD_CLOUDFLARE_MODE = !(typeof google !== 'undefined' && google.script && google.script.run);
 
 /* ===== Backend bridge ===== */
 function callBackend(fnName, args) {
