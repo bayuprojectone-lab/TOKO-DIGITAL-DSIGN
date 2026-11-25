@@ -1,0 +1,8 @@
+name = "toko-desain-digital"
+compatibility_date = "2026-11-25"
+
+# Static website assets served by Cloudflare Workers.
+# Deploy command: npx wrangler deploy
+[assets]
+directory = "./public"
+binding = "ASSETS"
