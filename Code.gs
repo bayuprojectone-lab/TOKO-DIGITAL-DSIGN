@@ -14,8 +14,8 @@
 
 // ==================== CONFIG ====================
 // TODO: ganti nilai ini sebelum deploy
-var ADMIN_EMAIL   = 'admin@tokodesain.id';
-var ADMIN_TOKEN   = 'ganti-dengan-token-rahasia-yang-kuat';  // minimal 24 char acak
+var ADMIN_EMAIL   = 'bayuprojectapp@gmail.com';
+var ADMIN_TOKEN   = 'TOKOADMIN-BAYU-27121992';  // minimal 24 char acak
 var ROOT_FOLDER   = 'TOKO DESAIN DIGITAL';
 var DB_NAME       = 'Toko_Desain_Digital_DB';
 
