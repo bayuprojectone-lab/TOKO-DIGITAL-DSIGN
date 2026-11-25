@@ -14,8 +14,8 @@
 
 // ==================== CONFIG ====================
 // TODO: ganti nilai ini sebelum deploy
-var ADMIN_EMAIL   = 'bayuprojectapp@gmail.com';
-var ADMIN_TOKEN   = 'TOKOADMIN-BAYU-27121992';  // minimal 24 char acak
+var ADMIN_EMAIL   = 'admin@tokodesain.id';
+var ADMIN_TOKEN   = 'ganti-dengan-token-rahasia-yang-kuat';  // minimal 24 char acak
 var ROOT_FOLDER   = 'TOKO DESAIN DIGITAL';
 var DB_NAME       = 'Toko_Desain_Digital_DB';
 
@@ -78,14 +78,51 @@ function doGet(e) {
 }
 
 function doPost(e) {
-  // Untuk webhook eksternal (mis. payment gateway). Frontend memakai google.script.run.
+  // API untuk Cloudflare Worker dan webhook eksternal.
+  // Format Cloudflare: { action: 'namaFungsi', args: {...} }
   var result;
   try {
-    var body = JSON.parse(e.postData.contents || '{}');
-    switch (body.action) {
-      case 'checkout':      result = createTransaction(body); break;
-      case 'verifyWebhook': result = verifyTransaction(body); break;
-      default:              throw new Error('Aksi POST tidak dikenal: ' + body.action);
+    var body = JSON.parse((e && e.postData && e.postData.contents) || '{}');
+    var action = body.action;
+    var args = body.args || body;
+
+    switch (action) {
+      case 'checkout':
+      case 'createTransaction':
+        result = createTransaction(args); break;
+      case 'verifyWebhook':
+      case 'verifyTransaction':
+        result = verifyTransaction(args); break;
+      case 'cancelTransaction':
+        result = cancelTransaction(args); break;
+      case 'getTransactionsAdmin':
+        result = getTransactionsAdmin(args); break;
+      case 'getDownloadData':
+        result = getDownloadData(args.pid, args.fmt, args.tid); break;
+      case 'deleteProduct':
+        result = deleteProduct(args); break;
+      case 'updateProduct':
+        result = updateProduct(args); break;
+      case 'uploadDesign':
+        result = uploadDesign(args); break;
+      case 'getFolderStats':
+        result = getFolderStats(); break;
+      case 'getDriveConnection':
+        result = getDriveConnection(); break;
+      case 'createBackup':
+        result = createBackup(args); break;
+      case 'getBackups':
+        result = getBackups(args.token); break;
+      case 'getActivity':
+        result = getActivity(args.token); break;
+      case 'getCatalog':
+        result = getCatalog(); break;
+      case 'getProduct':
+        result = getProduct(args.id || args); break;
+      case 'getOrders':
+        result = getOrders(args.buyer || args.email || args); break;
+      default:
+        throw new Error('Aksi POST tidak dikenal: ' + action);
     }
   } catch (err) {
     result = { error: err.message };
