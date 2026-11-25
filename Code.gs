@@ -15,7 +15,7 @@
 // ==================== CONFIG ====================
 // TODO: ganti nilai ini sebelum deploy
 var ADMIN_EMAIL   = 'bayuprojectapp@gmail.com';
-var ADMIN_TOKEN   = 'TOKOBAYUPRATAMA27121992';  // minimal 24 char acak
+var ADMIN_TOKEN   = 'TOKOBAYUDESIGNKURUNGANNYAWA1';  // minimal 24 char acak
 var ROOT_FOLDER   = 'TOKO DESAIN DIGITAL';
 var DB_NAME       = 'Toko_Desain_Digital_DB';
 
@@ -136,9 +136,21 @@ function jsonOut(obj) {
 }
 
 // ==================== Auth ====================
-function isAdmin(token) { return token === ADMIN_TOKEN; }
+function normalizeAdminToken(token) {
+  return String(token == null ? '' : token).trim();
+}
+
+function isAdmin(token) {
+  var received = normalizeAdminToken(token);
+  var expected = normalizeAdminToken(ADMIN_TOKEN);
+  return received !== '' && expected !== '' && received === expected;
+}
+
 function requireAdmin(token) {
-  if (!isAdmin(token)) throw new Error('Tidak diizinkan: admin token salah');
+  if (!isAdmin(token)) {
+    throw new Error('Tidak diizinkan: admin token salah');
+  }
+  return true;
 }
 
 // ==================== Initialization ====================
@@ -506,6 +518,7 @@ function createBackup(params) {
 }
 
 function getBackups(token) {
+  requireAdmin(token);
   var sheet = getOrCreateDb().getSheetByName('Backup');
   var rows = sheetToObjects(sheet);
   return { backups: rows.reverse().map(function (b) {
