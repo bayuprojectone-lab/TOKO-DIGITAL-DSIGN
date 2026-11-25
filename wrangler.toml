@@ -5,4 +5,3 @@ compatibility_date = "2026-11-25"
 # Deploy command: npx wrangler deploy
 [assets]
 directory = "./public"
-binding = "ASSETS"
