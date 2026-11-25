@@ -470,16 +470,88 @@ var ui = {
 
 /* ===== Backend bridge ===== */
 function callBackend(fnName, args) {
-  return new Promise(function (resolve, reject) {
-    if (typeof google !== 'undefined' && google.script && google.script.run) {
+
+  // Google Apps Script langsung
+  if (!TD_CLOUDFLARE_MODE) {
+
+    return new Promise(function (resolve, reject) {
+
       google.script.run
         .withSuccessHandler(resolve)
         .withFailureHandler(reject)
         [fnName](args);
-    } else {
-      reject(new Error('Backend Apps Script tidak tersedia. Deploy sesuai README_DEPLOY.md.'));
-    }
-  });
+
+    });
+  }
+
+  // Cloudflare → Cloudflare Worker → Apps Script
+  var url = '';
+
+  if (fnName === 'getCatalog') {
+
+    url = '/api/catalog';
+
+    return fetch(url)
+      .then(function (r) {
+        return r.json();
+      });
+
+  }
+
+  if (fnName === 'getProduct') {
+
+    url = '/api/product?id=' +
+      encodeURIComponent(args);
+
+    return fetch(url)
+      .then(function (r) {
+        return r.json();
+      });
+
+  }
+
+  if (fnName === 'getOrders') {
+
+    url = '/api/orders?buyer=' +
+      encodeURIComponent(args);
+
+    return fetch(url)
+      .then(function (r) {
+        return r.json();
+      });
+
+  }
+
+  if (fnName === 'createTransaction') {
+
+    return fetch('/api/checkout', {
+
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify({
+        action: 'checkout',
+        buyer: args.buyer,
+        email: args.email,
+        items: args.items,
+        total: args.total,
+        payMethod: args.payMethod
+      })
+
+    }).then(function (r) {
+      return r.json();
+    });
+
+  }
+
+  return Promise.reject(
+    new Error(
+      'Fungsi Cloudflare belum terhubung: ' + fnName
+    )
+  );
 }
 function backendAvailable() {
   return (typeof google !== 'undefined' && google.script && google.script.run);
