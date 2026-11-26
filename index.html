@@ -852,7 +852,7 @@ function setRole(role) {
 }
 function verifyAdminToken(token) {
   if (!token) { promptAdminToken(); return; }
-  callBackend('getActivity', { token: token }).then(function () {
+  callBackend('checkAdminToken', { token: token }).then(function () {
     ui.adminToken = token;
     sessionStorage.setItem('td_admin_token', token);
     showView('admin');
@@ -877,7 +877,6 @@ function promptAdminToken() {
         var token = document.getElementById('adminTokenInput').value.trim();
         if (!token) { toast('Token tidak boleh kosong', 'error'); return; }
         verifyAdminToken(token);
-        hideModal();
         toast('Memverifikasi akses admin...', 'success');
       }}
     ]
