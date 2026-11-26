@@ -397,6 +397,16 @@ body{background:linear-gradient(135deg,#f7f8ff 0%,#f4f8ff 45%,#fff7fb 100%)}
 .hero-cta{margin-top:2px;margin-bottom:20px}.market-feature-row{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:14px}.feature-card{background:#fff;border:1px solid #e2e8f4;border-radius:14px;min-height:82px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px;box-shadow:0 5px 18px rgba(31,53,105,.06)}.feature-card .fi{font-size:22px;margin-bottom:2px}.feature-card b{font-size:10.5px;color:#142252}.feature-card span{font-size:9px;color:#77839c}.market-section-head{display:flex;align-items:center;justify-content:space-between;margin:8px 2px 10px}.market-section-head h2{font-size:20px;color:#10205b}.market-section-head button{color:#155bdd;font-size:11px;font-weight:800;padding:6px 8px}.market-section-head button:hover{text-decoration:underline}
 .product-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.product-card{border-radius:15px;box-shadow:0 6px 20px rgba(30,49,93,.07)}.product-card .thumb{aspect-ratio:1.08/1}.product-card .body{padding:10px 11px 11px}.product-card .title{font-size:12.5px;min-height:34px}.product-card .price{font-size:16px;color:#0d55cf}.product-card .actions{gap:5px}.product-card .actions button{font-size:10.5px;padding:7px 8px}
 .market-cart-list{padding:8px}.mini-cart-item{display:grid;grid-template-columns:48px 1fr auto;gap:8px;padding:8px;border-bottom:1px solid #edf1f7;align-items:center}.mini-cart-item:last-child{border-bottom:0}.mini-cart-item img{width:48px;height:40px;border-radius:8px;object-fit:cover;background:#f1f5ff}.mini-cart-item .mt{font-size:10.5px;font-weight:700;color:#17233c;line-height:1.25}.mini-cart-item .mp{font-size:10px;color:#0d55cf;font-weight:800;margin-top:3px}.mini-cart-item .mq{font-size:10px;color:#7a879e}.mini-cart-total{padding:11px 12px;border-top:1px solid #e8edf5;display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:#10205b}.mini-cart-actions{padding:0 10px 10px;display:grid;grid-template-columns:1fr 1fr;gap:7px}.mini-cart-actions .btn{font-size:10px;padding:8px 5px}.trust-list{padding:6px 10px 10px}.trust-row{display:flex;gap:9px;align-items:center;padding:9px 3px;border-bottom:1px solid #edf1f7}.trust-row:last-child{border-bottom:0}.trust-row .ti{font-size:20px}.trust-row b{display:block;font-size:10.5px;color:#17233c}.trust-row span{display:block;font-size:9.5px;color:#7c879c}
+
+/* Dedicated marketplace panels: each menu owns the screen instead of appending below catalog. */
+.category-panel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-top:8px}
+.category-panel-card{background:#fff;border:1px solid #e1e8f5;border-radius:16px;padding:20px;min-height:120px;cursor:pointer;box-shadow:0 7px 24px rgba(24,48,100,.07);transition:.16s}
+.category-panel-card:hover{transform:translateY(-2px);border-color:#8eb5ff;box-shadow:0 12px 28px rgba(24,48,100,.12)}
+.category-panel-card .ico{font-size:28px;margin-bottom:10px}.category-panel-card h3{font-size:14px;color:#10205b;margin-bottom:5px}.category-panel-card p{font-size:11px;color:#71809c}
+.account-panel-card{max-width:760px;background:#fff;border:1px solid #e1e8f5;border-radius:18px;padding:22px;display:flex;align-items:center;gap:18px;box-shadow:0 8px 28px rgba(24,48,100,.08)}
+.account-avatar{width:58px;height:58px;border-radius:50%;background:#edf4ff;display:grid;place-items:center;font-size:27px}.account-panel-info{flex:1}.account-panel-info h3{font-size:16px;color:#10205b}.account-panel-info p{font-size:12px;color:#71809c;margin-top:4px}.account-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+@media(max-width:650px){.category-panel-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.category-panel-card{min-height:105px;padding:14px}.account-panel-card{align-items:flex-start;flex-wrap:wrap}.account-panel-info{min-width:calc(100% - 80px)}}
+
 @media(max-width:1180px){.market-layout{grid-template-columns:210px minmax(0,1fr)}.market-layout>.market-side.right-side{display:none}.product-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.market-feature-row{grid-template-columns:repeat(3,minmax(0,1fr))}.nav-brand{min-width:230px}}
 @media(max-width:900px){.market-layout{grid-template-columns:1fr}.market-layout>.market-side.left-side{display:none}.market-layout>.market-side.right-side{display:block}.market-layout>.market-side.right-side{order:3}.market-feature-row{grid-template-columns:repeat(3,minmax(0,1fr))}.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.nav-link-btn{min-width:52px}.nav-link-btn .txt{display:none}.nav-brand{min-width:190px}.role-toggle{display:none}}
 @media(max-width:650px){.market-topbar .center{display:none}.market-topbar .right{margin-left:auto}.navbar{height:auto;min-height:74px;flex-wrap:wrap;padding:8px 10px}.nav-brand{min-width:auto}.brand-name{font-size:14px}.brand-sub{display:none}.nav-search{order:3;flex-basis:100%}.nav-actions{margin-left:auto}.nav-link-btn{height:44px;min-width:42px}.nav-link-btn .ico{font-size:18px}.cart-btn{height:44px;min-width:42px}.cart-btn .cart-icon{font-size:18px}.cart-btn .count{margin:-24px 0 0 20px}.view{padding:12px 10px 28px}.hero{padding:22px 18px;min-height:205px;border-radius:16px}.hero h1{font-size:24px}.hero p{font-size:12px}.market-feature-row{grid-template-columns:repeat(3,1fr);gap:6px}.feature-card{min-height:72px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.market-section-head h2{font-size:17px}}
@@ -523,6 +533,12 @@ body{background:var(--shop-bg);font-family:Inter,system-ui,-apple-system,BlinkMa
     </div>
   </section>
 
+  <section id="view-kategori" class="view">
+    <div class="view-title">Kategori Produk</div>
+    <div class="view-sub">Pilih kategori untuk melihat desain yang tersedia.</div>
+    <div id="categoryPanelGrid" class="category-panel-grid"></div>
+  </section>
+
   <section id="view-detail" class="view">
     <div class="back-link" id="backToKatalog">← Kembali ke katalog</div>
     <div class="detail-layout" id="detailLayout"></div>
@@ -544,6 +560,23 @@ body{background:var(--shop-bg);font-family:Inter,system-ui,-apple-system,BlinkMa
     <div class="view-title">Pesanan Saya</div>
     <div class="view-sub">Riwayat transaksi dan file yang dapat diunduh.</div>
     <div id="ordersContent"></div>
+  </section>
+
+  <section id="view-akun" class="view">
+    <div class="view-title">Akun Saya</div>
+    <div class="view-sub">Kelola identitas pembeli dan akses pesanan Anda.</div>
+    <div class="account-panel-card">
+      <div class="account-avatar">👤</div>
+      <div class="account-panel-info">
+        <h3>Akun Pembeli</h3>
+        <p id="accountPanelEmail">Belum ada email tersimpan.</p>
+      </div>
+      <button class="btn btn-primary" id="accountEditBtn">Edit Akun</button>
+    </div>
+    <div class="account-actions">
+      <button class="btn btn-outline" data-nav="orders">📋 Lihat Pesanan Saya</button>
+      <button class="btn btn-outline" data-nav="katalog">🏠 Kembali Beranda</button>
+    </div>
   </section>
 
   <section id="view-admin" class="view">
@@ -789,12 +822,16 @@ function showView(name) {
   ui.currentView = name;
   document.querySelectorAll('.nav-link-btn[data-nav]').forEach(function(b){b.classList.toggle('active', b.dataset.nav === name || (name==='katalog' && b.dataset.nav==='kategori' && false));});
   if (name === 'katalog')      renderKatalog();
+  if (name === 'kategori')     renderCategoryPanel();
   if (name === 'detail')       renderDetail();
   if (name === 'cart')         renderCart();
   if (name === 'checkout')     renderCheckout();
   if (name === 'orders')       renderOrders();
+  if (name === 'akun')         renderAccountPanel();
   if (name === 'admin')        renderAdmin();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  window.scrollTo(0, 0);
 }
 
 /* ===== Role switching ===== */
@@ -834,6 +871,24 @@ function promptAdminToken() {
 }
 
 /* ===== Drive bar ===== */
+function renderCategoryPanel(){
+  var el=document.getElementById('categoryPanelGrid'); if(!el) return;
+  var cats=[
+    ['01','🎨','Banner & Spanduk','Desain promosi dan cetak ukuran besar'],
+    ['02','👕','Jersey & Kaos','Desain apparel dan kebutuhan komunitas'],
+    ['03','📱','Media Sosial','Konten promosi untuk Facebook, Instagram, TikTok'],
+    ['04','💳','Kartu & ID','Kartu nama, kartu pelajar, ID card'],
+    ['05','📜','Undangan & Acara','Undangan, aqiqah, pernikahan dan acara'],
+    ['06','🪪','Logo & Branding','Identitas visual dan kebutuhan usaha']
+  ];
+  el.innerHTML=cats.map(function(c){return '<button class="category-panel-card" data-category-panel="'+c[0]+'"><div class="ico">'+c[1]+'</div><h3>'+esc(c[2])+'</h3><p>'+esc(c[3])+'</p></button>';}).join('');
+  el.querySelectorAll('[data-category-panel]').forEach(function(b){b.addEventListener('click',function(){ui.filterCategory=b.dataset.categoryPanel;showView('katalog');});});
+}
+function renderAccountPanel(){
+  var el=document.getElementById('accountPanelEmail'); if(el) el.textContent=ui.buyerEmail || 'Belum ada email tersimpan.';
+  var btn=document.getElementById('accountEditBtn'); if(btn){btn.onclick=function(){accountPanel();};}
+}
+
 function renderDriveBar() {
   var dot = document.getElementById('driveDot');
   var txt = document.getElementById('driveStatusText');
@@ -1433,11 +1488,11 @@ function bindEvents() {
     b.addEventListener('click', function(){
       var n=b.dataset.nav;
       if(n==='katalog') showView('katalog');
-      else if(n==='kategori') { showView('katalog'); document.getElementById('catFilter').scrollIntoView({behavior:'smooth',block:'center'}); }
+      else if(n==='kategori') showView('kategori');
       else if(n==='cart') showView('cart');
       else if(n==='checkout') showView('checkout');
       else if(n==='orders') showView('orders');
-      else if(n==='akun') accountPanel();
+      else if(n==='akun') showView('akun');
     });
   });
   document.querySelectorAll('[data-side-cat]').forEach(function(b){b.addEventListener('click',function(){setMarketplaceCategory(b.dataset.sideCat);});});
