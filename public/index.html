@@ -381,6 +381,99 @@ body{background:linear-gradient(135deg,#f7f8ff 0%,#f4f8ff 45%,#fff7fb 100%)}
 .app-footer{background:linear-gradient(100deg,#171d3b,#30245f,#5a3fc7)}
 .loading{min-height:180px}.spinner{width:20px;height:20px;border-width:2px;border-top-color:#6c4df6}
 @media(max-width:640px){.navbar{height:62px}.logo-mark{width:34px;height:34px}.view{padding-top:20px}.hero{border-radius:20px;padding:25px 18px}.product-grid{gap:12px}.product-card{border-radius:15px}.product-card .body{padding:11px}.product-card .cat-badge{font-size:9px}.product-card .price{font-size:15px}.btn{border-radius:9px}}
+
+/* ===== EXACT MARKETPLACE LAYOUT ===== */
+.market-topbar{height:44px;background:linear-gradient(90deg,#123b91,#0d4ebd);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 42px;font-size:14px;font-weight:600}
+.market-topbar span{opacity:.7;margin:0 5px}
+.navbar{height:78px;background:#fff;color:#10224a;border-bottom:1px solid #e7ebf3;box-shadow:0 2px 10px rgba(15,35,75,.08);padding:0 42px}
+.nav-brand{color:#10224a;min-width:280px}
+.logo-mark{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,#1768f2,#0b4cc8);font-size:0;position:relative;box-shadow:0 6px 14px rgba(37,99,235,.25)}
+.logo-mark:after{content:"🛍";font-size:27px;position:absolute;inset:0;display:grid;place-items:center;filter:grayscale(1) brightness(0) invert(1)}
+.brand-name{font-size:21px;font-weight:900;color:#10224a}
+.brand-sub{font-size:10px;color:#71809b;letter-spacing:.2px}
+.nav-search{max-width:none;flex:1;margin:0 22px}
+.nav-search input{height:48px;background:#f7f9fc;color:#334155;border:1px solid #dbe2ef;border-radius:12px;padding-left:18px}
+.nav-search input::placeholder{color:#8b97aa}
+.nav-search:after{border-color:#2563eb;background:#2563eb}
+.nav-actions{gap:10px}
+.market-links{display:flex;align-items:center;gap:20px}
+.market-link{position:relative;border:0;background:transparent;color:#101b3b;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:22px;cursor:pointer;min-width:58px}
+.market-link span{font-size:12px;font-weight:600}
+.market-link.active{color:#0d5bea}
+.market-link b{position:absolute;top:-3px;right:7px;background:#ef3340;color:#fff;border-radius:20px;font-size:10px;min-width:18px;padding:2px 5px}
+.market-admin-link{display:flex!important}
+.role-toggle,.cart-btn{display:none!important}
+.drive-bar{display:none!important}
+.app-main{max-width:none;width:100%;padding:16px 24px 36px;background:#f3f6fc}
+.view{max-width:1500px;margin:0 auto}
+.market-layout{display:grid;grid-template-columns:260px minmax(0,1fr) 270px;gap:16px;align-items:start}
+.market-sidebar,.mini-cart-card,.trust-card,.promo-card{background:#fff;border:1px solid #e0e6f0;border-radius:12px;box-shadow:0 3px 12px rgba(20,50,100,.08)}
+.market-sidebar{overflow:hidden}
+.side-title{height:50px;background:#1167ef;color:#fff;display:flex;align-items:center;gap:10px;padding:0 18px;font-size:17px;font-weight:800}
+.side-cat{width:100%;border:0;border-bottom:1px solid #eef1f6;background:#fff;display:grid;grid-template-columns:28px 1fr auto 18px;align-items:center;gap:5px;padding:12px 14px;color:#18223d;text-align:left;cursor:pointer}
+.side-cat:hover,.side-cat.active{background:#f3f7ff;color:#0d5bea}
+.side-cat span{font-size:18px;text-align:center}
+.side-cat b{font-size:13px;font-weight:600}
+.side-cat em{font-style:normal;font-size:10px;color:#9aa6ba}
+.side-cat i{font-style:normal;font-size:20px;color:#8894aa}
+.market-center{min-width:0}
+.market-hero{height:285px;margin:0 0 16px;border-radius:12px;padding:30px 40px;background:linear-gradient(110deg,#0d4dc9 0%,#0874ed 55%,#4a21d4 100%);box-shadow:0 8px 22px rgba(21,86,210,.2);display:flex;align-items:center;position:relative}
+.hero-copy{position:relative;z-index:2}
+.hero-kicker{display:inline-block;background:#ffd21a;color:#111827;border-radius:22px;padding:7px 20px;font-size:18px;font-weight:900;margin-bottom:8px}
+.market-hero h1{font-family:var(--font-sans);font-size:36px;line-height:1.08;max-width:620px;margin:0 0 12px}
+.market-hero h1 span{color:#ffd21a}
+.market-hero p{font-size:15px;font-weight:600;opacity:1;margin-bottom:18px}
+.hero-buy{border:0;border-radius:22px;background:#ffd21a;color:#111827;padding:11px 24px;font-size:15px;font-weight:900;cursor:pointer}
+.hero-art{position:absolute;right:42px;bottom:20px;width:285px;height:190px;border-radius:8px;background:linear-gradient(145deg,#263b56,#0b1220);box-shadow:0 15px 30px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;font-size:35px;font-weight:900;transform:perspective(500px) rotateY(-8deg)}
+.hero-art small{font-size:11px;display:block;color:#ff5a2f}
+.hero-dots{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);display:flex;gap:7px}
+.hero-dots i{width:9px;height:9px;border-radius:50%;background:#fff;opacity:.7}.hero-dots i.active{width:22px;border-radius:9px;opacity:1}
+.benefit-row{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:16px}
+.benefit-row>div{height:82px;background:#fff;border:1px solid #e4e9f2;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#0b4fca;font-size:24px;box-shadow:0 2px 7px rgba(20,50,100,.04)}
+.benefit-row b{font-size:11px;line-height:1.15;color:#17213b;margin-top:3px}
+.market-section-head{height:48px;background:#fff;border-radius:12px 12px 0 0;border-bottom:1px solid #e7ebf2;padding:0 18px;display:flex;align-items:center;justify-content:space-between}
+.market-section-head h2{font-size:23px;color:#111d3b}.market-section-head h2 span{display:inline-block;width:5px;height:25px;background:#0d67ef;border-radius:5px;margin-right:10px;vertical-align:-4px}
+.market-section-head button{border:0;background:none;color:#075be6;font-weight:700;cursor:pointer}
+.cat-filter{padding:8px 12px;margin:0;background:#fff;border-bottom:1px solid #e7ebf2;overflow:auto}
+.cat-chip{border-radius:20px!important;border:1px solid #dfe6f1!important;background:#fff!important;color:#334155!important;padding:7px 12px!important;font-size:11px!important}
+.cat-chip.active{background:#eaf2ff!important;border-color:#0d67ef!important;color:#0d5bea!important}
+.product-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;background:#fff;padding:12px;border-radius:0 0 12px 12px}
+.product-card{border:1px solid #e0e6ef;border-radius:9px;background:#fff;box-shadow:0 2px 7px rgba(20,50,100,.06)}
+.product-card:hover{border-color:#0d67ef;transform:translateY(-2px);box-shadow:0 8px 18px rgba(20,50,100,.12)}
+.product-card .thumb{aspect-ratio:1/1;background:#f4f6fa}
+.product-card .body{padding:9px 10px 10px}
+.product-card .cat-badge{font-size:9px;color:#0d5bea}
+.product-card .title{font-size:12px;min-height:34px;font-weight:700}
+.product-card .meta{font-size:9px;margin-bottom:6px}
+.product-card .price{font-size:16px;color:#075be6;margin-bottom:7px}
+.product-card .actions{gap:5px}
+.product-card .actions .btn{font-size:10px;padding:7px 6px;border-radius:7px}
+.product-card .actions .btn-outline{display:none}
+.product-card .actions .btn-primary{width:100%;background:#0d67ef!important;border-color:#0d67ef!important}
+.market-right{display:flex;flex-direction:column;gap:12px}
+.mini-cart-card{padding:0;overflow:hidden}
+.mini-cart-card h3{padding:15px 14px;margin:0;border-bottom:1px solid #e8edf4;font-size:15px;color:#17213b}
+.mini-cart-card h3 span{font-size:12px;color:#64748b}
+.mini-item{display:flex;gap:8px;padding:10px 12px;border-bottom:1px solid #edf0f5}
+.mini-item img{width:54px;height:54px;object-fit:cover;border-radius:6px;background:#f4f6fa}
+.mini-item b{display:block;font-size:11px;line-height:1.25;color:#17213b}.mini-item small{display:block;color:#075be6;font-weight:800;margin-top:5px}
+.mini-empty,.mini-more{padding:14px;font-size:11px;color:#8a95a9;text-align:center}
+.mini-total{display:flex;justify-content:space-between;padding:12px 14px;border-top:1px solid #edf0f5;font-size:13px}
+.mini-total b{color:#075be6;font-size:15px}
+.mini-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:0 12px 12px}
+.mini-actions button{border:1px solid #cbd7e8;background:#fff;color:#075be6;border-radius:8px;padding:9px 5px;font-weight:700;cursor:pointer}
+.mini-actions button:last-child{background:#0d67ef;color:#fff;border-color:#0d67ef}
+.trust-card{padding:9px 13px}
+.trust-card div{display:grid;grid-template-columns:36px 1fr;column-gap:7px;padding:9px 0;border-bottom:1px solid #e7ebf1;font-size:12px;color:#17213b}
+.trust-card div:last-child{border-bottom:0}.trust-card div:first-letter{font-size:20px}
+.trust-card b{display:block}.trust-card small{display:block;color:#77839a;margin-top:2px}
+.promo-card{min-height:120px;padding:16px;background:linear-gradient(120deg,#1734a6,#6d16e8);color:#fff;position:relative;overflow:hidden}
+.promo-card small{font-weight:700}.promo-card strong{display:block;font-size:20px;line-height:1.05;margin:7px 0 12px;color:#ffd21a}
+.promo-card button{border:0;border-radius:18px;background:#ffd21a;color:#111827;padding:7px 14px;font-weight:900;cursor:pointer}
+.market-topbar+ .navbar .market-admin-link{display:flex}
+@media(max-width:1200px){.market-layout{grid-template-columns:220px minmax(0,1fr)}.market-right{display:none}.product-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero-art{right:20px;width:230px}.market-hero h1{font-size:31px}}
+@media(max-width:900px){.market-topbar{padding:0 16px;font-size:11px}.market-topbar div:nth-child(3){display:none}.navbar{padding:0 14px}.nav-brand{min-width:auto}.brand-sub{display:none}.brand-name{font-size:16px}.nav-search{margin:0 8px}.market-links{gap:4px}.market-link{min-width:48px;font-size:18px}.market-link span{font-size:9px}.market-layout{grid-template-columns:1fr}.market-sidebar{display:none}.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.market-hero{height:250px;padding:24px}.hero-art{opacity:.55;right:10px}.benefit-row{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.app-main{padding:10px}.market-topbar{height:36px}.market-topbar div:nth-child(2){margin:auto}.nav-search{display:none}.navbar{height:64px}.nav-brand{flex:1}.market-links{gap:0}.market-link{min-width:42px}.market-link:nth-child(2){display:none}.market-hero{height:220px;padding:20px}.market-hero h1{font-size:25px}.hero-kicker{font-size:13px;padding:6px 12px}.market-hero p{font-size:11px}.hero-art{width:150px;height:110px;right:-15px;font-size:20px}.benefit-row{grid-template-columns:repeat(3,1fr);gap:5px}.benefit-row>div{height:70px;font-size:19px}.benefit-row b{font-size:9px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px}.market-section-head h2{font-size:18px}.cat-filter{display:none}}
 </style>
 </head>
 <body>
@@ -395,6 +488,11 @@ body{background:linear-gradient(135deg,#f7f8ff 0%,#f4f8ff 45%,#fff7fb 100%)}
   </div>
 </div>
 
+<div class="market-topbar">
+  <div>✓ Toko Resmi <span>|</span> Desain Berkualitas</div>
+  <div>★ Belanja Mudah · Aman · Terpercaya</div>
+  <div>♧ Butuh Bantuan? <span>Hubungi Kami</span></div>
+</div>
 <nav class="navbar">
   <div class="nav-brand" id="navBrand">
     <div class="logo-mark">TD</div>
@@ -402,6 +500,13 @@ body{background:linear-gradient(135deg,#f7f8ff 0%,#f4f8ff 45%,#fff7fb 100%)}
   </div>
   <div class="nav-search"><input type="search" id="searchInput" placeholder="Cari desain..." autocomplete="off"></div>
   <div class="nav-actions">
+    <div class="market-links">
+      <button type="button" class="market-link active" data-market-view="katalog">⌂<span>Beranda</span></button>
+      <button type="button" class="market-link" data-market-view="katalog">▦<span>Kategori</span></button>
+      <button type="button" class="market-link" id="marketCartLink">🛒<span>Keranjang</span><b id="marketCartBadge">0</b></button>
+      <button type="button" class="market-link" data-market-view="orders">▣<span>Pesanan</span></button>
+      <button type="button" class="market-link market-admin-link" data-role="admin">♙<span>Akun</span></button>
+    </div>
     <div class="role-toggle" id="roleToggle">
       <button data-role="pembeli" class="active">Pembeli</button>
       <button data-role="admin">Admin</button>
@@ -424,17 +529,64 @@ body{background:linear-gradient(135deg,#f7f8ff 0%,#f4f8ff 45%,#fff7fb 100%)}
 
 <main class="app-main">
   <section id="view-katalog" class="view active">
-    <div class="hero">
-      <h1>Katalog Desain Siap Pakai</h1>
-      <p>File asli disimpan di Google Drive. Preview tersedia gratis — file tanpa watermark dibuka setelah pembayaran terverifikasi admin.</p>
-      <div class="hero-stats">
-        <div class="hero-stat"><div class="num" id="heroProdCount">—</div><div class="lbl">Desain Tersedia</div></div>
-        <div class="hero-stat"><div class="num">7</div><div class="lbl">Kategori</div></div>
-        <div class="hero-stat"><div class="num">9</div><div class="lbl">Folder Drive</div></div>
+    <div class="market-layout">
+      <aside class="market-sidebar">
+        <div class="side-title">☰ <span>Kategori Produk</span></div>
+        <div id="categorySide"></div>
+      </aside>
+
+      <div class="market-center">
+        <div class="hero market-hero">
+          <div class="hero-copy">
+            <div class="hero-kicker">Toko Desain Digital</div><span id="heroProdCount" style="display:none">—</span>
+            <h1>Solusi Desain Kreatif<br>untuk Kebutuhan <span>Anda!</span></h1>
+            <p>Desain Modern · Harga Terjangkau · Proses Cepat</p>
+            <button class="hero-buy" type="button" id="heroShopBtn">Belanja Sekarang →</button>
+          </div>
+          <div class="hero-art">DESIGN<br><small>CREATE MORE</small></div>
+          <div class="hero-dots"><i></i><i class="active"></i><i></i></div>
+        </div>
+
+        <div class="benefit-row">
+          <div>🛡️<b>Desain<br>Berkualitas</b></div>
+          <div>⚡<b>Proses<br>Cepat</b></div>
+          <div>🎧<b>Layanan<br>Responsif</b></div>
+          <div>🔒<b>Transaksi<br>Aman</b></div>
+          <div>👍<b>Harga<br>Terbaik</b></div>
+          <div>🎁<b>Banyak<br>Promo</b></div>
+        </div>
+
+        <div class="market-section-head">
+          <h2><span></span>Produk Terbaru</h2>
+          <button type="button" id="viewAllProducts">Lihat Semua →</button>
+        </div>
+        <div class="cat-filter" id="catFilter"></div>
+        <div class="product-grid" id="productGrid"><div class="loading"><div class="spinner"></div>Memuat katalog...</div></div>
       </div>
+
+      <aside class="market-right">
+        <div class="mini-cart-card">
+          <h3>Keranjang Belanja <span id="miniCartCount">(0)</span></h3>
+          <div id="miniCartItems"><div class="mini-empty">Keranjang masih kosong</div></div>
+          <div class="mini-total"><span>Total:</span><b id="miniCartTotal">Rp 0</b></div>
+          <div class="mini-actions">
+            <button type="button" id="miniViewCart">Lihat Keranjang</button>
+            <button type="button" id="miniCheckout">Checkout →</button>
+          </div>
+        </div>
+        <div class="trust-card">
+          <div>🛡️ <b>Transaksi Aman</b><small>Data Anda Terlindungi</small></div>
+          <div>⚡ <b>Proses Cepat</b><small>Pesanan Segera Diproses</small></div>
+          <div>🎧 <b>Layanan Responsif</b><small>Siap Membantu Anda</small></div>
+          <div>👍 <b>Produk Berkualitas</b><small>Hasil Terbaik</small></div>
+        </div>
+        <div class="promo-card">
+          <small>Belanja Sekarang! 🎉</small>
+          <strong>Banyak Promo<br>Menarik!</strong>
+          <button type="button" id="promoBtn">Klik di Sini →</button>
+        </div>
+      </aside>
     </div>
-    <div class="cat-filter" id="catFilter"></div>
-    <div class="product-grid" id="productGrid"><div class="loading"><div class="spinner"></div>Memuat katalog...</div></div>
   </section>
 
   <section id="view-detail" class="view">
@@ -626,7 +778,8 @@ function loadCart() {
 function saveCart() { localStorage.setItem('td_cart', JSON.stringify(state.cart)); }
 function updateCartCount() {
   var n = state.cart.reduce(function (s, c) { return s + c.qty; }, 0);
-  document.getElementById('cartCount').textContent = n;
+  var el=document.getElementById('cartCount'); if(el) el.textContent=n;
+  renderMiniCart();
 }
 
 /* ===== Helpers ===== */
@@ -784,6 +937,8 @@ function renderCatFilter() {
 }
 
 function renderKatalog() {
+  renderMarketplaceSidebar();
+  renderMiniCart();
   document.getElementById('heroProdCount').textContent = state.products.length;
   renderCatFilter();
   var grid = document.getElementById('productGrid');
@@ -816,6 +971,62 @@ function renderKatalog() {
   grid.querySelectorAll('.product-card').forEach(function (card) {
     card.addEventListener('click', function () { ui.currentProduct = card.dataset.pid; showView('detail'); });
   });
+}
+
+/* ===== Marketplace UI ===== */
+function renderMarketplaceSidebar() {
+  var wrap = document.getElementById('categorySide');
+  if (!wrap) return;
+  var icons = ['🖼️','🖊️','🧾','🟥','✂️','👕','▤'];
+  wrap.innerHTML = '<button class="side-cat active" data-cat="all"><span>'+icons[0]+'</span><b>Semua Produk</b><em>'+state.products.length+'</em><i>›</i></button>' +
+    CATEGORIES.map(function(c, i) {
+      var count = state.products.filter(function(p){return p.cat===c.code;}).length;
+      return '<button class="side-cat" data-cat="'+c.code+'"><span>'+icons[i%icons.length]+'</span><b>'+esc(c.name)+'</b><em>'+count+'</em><i>›</i></button>';
+    }).join('');
+  wrap.querySelectorAll('.side-cat').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      ui.filterCategory = btn.dataset.cat;
+      renderMarketplaceSidebar();
+      renderCatFilter();
+      renderKatalog();
+    });
+  });
+}
+function renderMiniCart() {
+  var items = state.cart || [];
+  var qty = items.reduce(function(n,c){return n + Number(c.qty||0);},0);
+  var total = items.reduce(function(sum,c){
+    var p = findProduct(c.id);
+    return sum + (p ? Number(p.price||0)*Number(c.qty||0) : 0);
+  },0);
+  var countEl=document.getElementById('miniCartCount'), totalEl=document.getElementById('miniCartTotal'), badge=document.getElementById('marketCartBadge');
+  if(countEl) countEl.textContent='('+qty+')';
+  if(totalEl) totalEl.textContent=formatRp(total);
+  if(badge) badge.textContent=qty;
+  var box=document.getElementById('miniCartItems');
+  if(!box) return;
+  if(!items.length){box.innerHTML='<div class="mini-empty">Keranjang masih kosong</div>';return;}
+  box.innerHTML=items.slice(0,2).map(function(c){
+    var p=findProduct(c.id);
+    if(!p) return '';
+    return '<div class="mini-item"><img src="'+previewUrl(p)+'"><div><b>'+esc(p.title)+'</b><small>'+formatRp(p.price)+' × '+c.qty+'</small></div></div>';
+  }).join('');
+  if(items.length>2) box.innerHTML += '<div class="mini-more">+'+(items.length-2)+' produk lainnya</div>';
+}
+function initMarketplaceUI() {
+  renderMarketplaceSidebar();
+  renderMiniCart();
+  var shop=document.getElementById('heroShopBtn'); if(shop) shop.onclick=function(){document.getElementById('productGrid').scrollIntoView({behavior:'smooth'});};
+  var all=document.getElementById('viewAllProducts'); if(all) all.onclick=function(){ui.filterCategory='all';renderKatalog();};
+  var vc=document.getElementById('miniViewCart'); if(vc) vc.onclick=function(){showView('cart');};
+  var co=document.getElementById('miniCheckout'); if(co) co.onclick=function(){showView('checkout');};
+  var mc=document.getElementById('marketCartLink'); if(mc) mc.onclick=function(){showView('cart');};
+  var promo=document.getElementById('promoBtn'); if(promo) promo.onclick=function(){document.getElementById('productGrid').scrollIntoView({behavior:'smooth'});};
+  document.querySelectorAll('.market-link[data-market-view]').forEach(function(btn){
+    btn.onclick=function(){showView(btn.dataset.marketView||'katalog');};
+  });
+  var adminMarket=document.querySelector('.market-admin-link');
+  if(adminMarket) adminMarket.onclick=function(){ setRole('admin'); };
 }
 
 /* ===== Detail ===== */
@@ -1410,6 +1621,7 @@ function init() {
   });
 }
 init();
+initMarketplaceUI();
 </script>
 </body>
 </html>
