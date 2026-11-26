@@ -388,7 +388,8 @@ body{background:linear-gradient(135deg,#f7f8ff 0%,#f4f8ff 45%,#fff7fb 100%)}
 .navbar{height:78px;background:#fff;color:#10205b;padding:0 max(16px,calc((100vw - 1480px)/2));gap:18px;border-bottom:1px solid #e7ecf7;box-shadow:0 4px 18px rgba(18,47,103,.08)}
 .nav-brand{min-width:270px}.logo-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(145deg,#0d62e9,#0a2e91);box-shadow:0 8px 18px rgba(20,80,190,.24);font-size:16px}.brand-name{font-size:18px;color:#07144b;line-height:1}.brand-sub{font-size:9.5px;color:#64748b;margin-top:3px}
 .nav-search{max-width:none}.nav-search input{height:46px;border-radius:25px;background:#f5f8ff;border:1px solid #dbe4f4;color:#17233c;padding-left:44px;font-size:13px}.nav-search input::placeholder{color:#7c8aa6}.nav-search input:focus{background:#fff;border-color:#2d66dd;box-shadow:0 0 0 4px rgba(45,102,221,.08)}.nav-search::before{left:17px;top:50%;border-color:#70809e}.nav-search::after{left:27px;top:30px;background:#70809e}
-.nav-actions{gap:4px}.nav-link-btn{position:relative;height:58px;min-width:66px;padding:5px 8px;border-radius:12px;color:#17233c;font-size:10.5px;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:.18s}.nav-link-btn .ico{font-size:21px;line-height:1}.nav-link-btn:hover{background:#eef4ff;color:#1457d9}.nav-link-btn.active{color:#1457d9;background:#eef4ff}.nav-link-btn.active:after{content:"";width:28px;height:3px;border-radius:5px;background:#1457d9;margin-top:1px}.role-toggle{background:#edf3ff;border:1px solid #dbe5f7;border-radius:12px;padding:3px}.role-toggle button{color:#64748b}.role-toggle button.active{background:#fff;color:#1457d9;box-shadow:0 2px 8px rgba(28,72,150,.12)}
+.nav-actions{gap:4px}.admin-entry{color:#7c3aed!important}.admin-entry:hover{color:#6d28d9!important;background:#f3e8ff!important}
+.nav-link-btn{position:relative;height:58px;min-width:66px;padding:5px 8px;border-radius:12px;color:#17233c;font-size:10.5px;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:.18s}.nav-link-btn .ico{font-size:21px;line-height:1}.nav-link-btn:hover{background:#eef4ff;color:#1457d9}.nav-link-btn.active{color:#1457d9;background:#eef4ff}.nav-link-btn.active:after{content:"";width:28px;height:3px;border-radius:5px;background:#1457d9;margin-top:1px}.role-toggle{background:#edf3ff;border:1px solid #dbe5f7;border-radius:12px;padding:3px}.role-toggle button{color:#64748b}.role-toggle button.active{background:#fff;color:#1457d9;box-shadow:0 2px 8px rgba(28,72,150,.12)}
 .cart-btn{height:58px;min-width:66px;padding:5px 8px;background:#fff;color:#17233c;border:0;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:10.5px}.cart-btn .cart-icon{display:block;font-size:21px}.cart-btn .count{position:absolute;margin:-28px 0 0 26px;background:#ef4444;box-shadow:0 3px 10px rgba(239,68,68,.25)}
 .drive-bar{padding:7px max(16px,calc((100vw - 1480px)/2));background:#f8fbff;border-bottom:1px solid #e8edf7;font-size:10.5px}
 .app-main{min-height:calc(100vh - 112px)}.view{max-width:1480px;padding:18px max(16px,calc((100vw - 1480px)/2)) 40px}.view-title{font-size:25px;color:#10205b}
@@ -474,6 +475,7 @@ body{background:var(--shop-bg);font-family:Inter,system-ui,-apple-system,BlinkMa
     <button class="nav-link-btn" data-nav="cart"><span class="ico">🛒</span><span class="txt">Keranjang</span><span class="count nav-count" id="navCartCount">0</span></button>
     <button class="nav-link-btn" data-nav="orders"><span class="ico">📋</span><span class="txt">Pesanan</span></button>
     <button class="nav-link-btn" data-nav="akun"><span class="ico">♙</span><span class="txt">Akun</span></button>
+    <button class="nav-link-btn admin-entry" id="adminEntry" type="button"><span class="ico">⚙️</span><span class="txt">Admin</span></button>
     <div class="role-toggle" id="roleToggle"><button data-role="pembeli" class="active">Pembeli</button><button data-role="admin">Admin</button></div>
   </div>
 </nav>
@@ -843,11 +845,25 @@ function setRole(role) {
   document.getElementById('cartBtn').classList.toggle('hidden', role === 'admin');
   if (role === 'admin') {
     if (!ui.adminToken) { promptAdminToken(); return; }
-    showView('admin');
+    verifyAdminToken(ui.adminToken);
   } else {
     showView('katalog');
   }
 }
+function verifyAdminToken(token) {
+  if (!token) { promptAdminToken(); return; }
+  callBackend('getActivity', { token: token }).then(function () {
+    ui.adminToken = token;
+    sessionStorage.setItem('td_admin_token', token);
+    showView('admin');
+  }).catch(function (err) {
+    ui.adminToken = '';
+    sessionStorage.removeItem('td_admin_token');
+    toast('Token admin salah atau backend belum terhubung: ' + err.message, 'error');
+    promptAdminToken();
+  });
+}
+
 function promptAdminToken() {
   showModal({
     title: 'Login Admin',
@@ -860,11 +876,9 @@ function promptAdminToken() {
       { label: 'Masuk', class: 'btn-primary', onclick: function () {
         var token = document.getElementById('adminTokenInput').value.trim();
         if (!token) { toast('Token tidak boleh kosong', 'error'); return; }
-        ui.adminToken = token;
-        sessionStorage.setItem('td_admin_token', token);
+        verifyAdminToken(token);
         hideModal();
-        showView('admin');
-        toast('Token admin disimpan', 'success');
+        toast('Memverifikasi akses admin...', 'success');
       }}
     ]
   });
@@ -1504,6 +1518,8 @@ function bindEvents() {
   document.querySelectorAll('.role-toggle button').forEach(function (b) {
     b.addEventListener('click', function () { setRole(b.dataset.role); });
   });
+  var adminEntry = document.getElementById('adminEntry');
+  if (adminEntry) adminEntry.addEventListener('click', function () { setRole('admin'); });
   var legacyCartBtn=document.getElementById('cartBtn'); if(legacyCartBtn) legacyCartBtn.addEventListener('click', function () { showView('cart'); });
   var si = document.getElementById('searchInput');
   si.addEventListener('input', function () {
